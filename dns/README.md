@@ -5,7 +5,7 @@
 
 名称 | 说明
 --- | ---
-url | http://ip/list
+url | /list
 请求方法 | GET
 
 返回参数:
@@ -37,7 +37,7 @@ url | http://ip/list
 
 名称 | 说明
 --- | ---
-请求地址 | http://ip/add/
+请求地址 | /add/
 编码 | UTF-8
 请求方式 | POST
 请求参数格式 | application/json
@@ -82,7 +82,7 @@ ttl  | int    | 是 | TTL 值
 ## 删除记录
 名称 | 说明
 --- | ---
-请求地址 | http://ip/del
+请求地址 | /del
 编码 | UTF-8
 请求方式 | POST
 请求参数格式 | application/json
@@ -113,7 +113,7 @@ id |int | 是 | list中获取的record对应的id
 ## 修改记录
 名称 | 说明
 --- | ---
-请求地址 | http://ip/mod
+请求地址 | /mod
 编码 | UTF-8
 请求方式 | POST
 请求参数格式 | application/json
@@ -155,7 +155,7 @@ ttl  | int    | 是 | TTL 值
 ## 开启/禁用
 名称 | 说明
 --- | ---
-请求地址 | http://ip/status
+请求地址 | /status
 编码 | UTF-8
 请求方式 | POST
 请求参数格式 | application/json

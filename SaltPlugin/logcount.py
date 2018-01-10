@@ -7,7 +7,6 @@
 # ver : 0.1.0
 ####################################################################
 import re
-import sys
 import json
 import time
 import subprocess

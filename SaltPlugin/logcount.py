@@ -7,6 +7,7 @@
 # ver : 0.1.0
 ####################################################################
 import re
+import sys
 import json
 import time
 import subprocess
@@ -32,7 +33,7 @@ def filterlog(logfile, st, end):
 
     filterCmd = awkCmd + start_time + awkAnd + end_time + awkCmd2 + logfile
     p = subprocess.Popen(filterCmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    stdout,stderr = p.communicate()
+    stdout, stderr = p.communicate()
     return stdout
 
 
@@ -44,10 +45,11 @@ def cleanlog(loglist):
             jdata = json.loads(line)
             if 499 < jdata["status"] < 600:
                 jdata["status"] = '5xx'
-                data = str(jdata["uri"]) + '@' + str(jdata["status"])
-                datalist.append(data)
+            data = str(jdata["uri"]) + '@' + str(jdata["status"])
+            datalist.append(data)
 
     return datalist
+
 
 def counter(countstr):
     ''' 传入清洗过的列表转换的str，计算数量, return 字典'''
@@ -60,6 +62,7 @@ def counter(countstr):
 
     return mydict
 
+
 def main(logfile, min=10):
     '''使用方法： salt af-xxx.uc logcount.main logfile='tmp.log' min=10
            logfile  - 指定nginx的日志文件名称，[必须参数]
@@ -68,17 +71,17 @@ def main(logfile, min=10):
     countSec = min * 60
     nowTime = (time.time())
     agoTime = (time.time() - countSec)
-    starTime =(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(agoTime)))
+    starTime = (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(agoTime)))
     endTime = (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(nowTime)))
 
     # 获取日志文件名称
-    logFile=logname(logfile)
+    logFile = logname(logfile)
 
     # 根据时间过滤日志
-    flog=filterlog(logFile, starTime, endTime)
+    flog = filterlog(logFile, starTime, endTime)
 
     # 清洗日志
-    p=cleanlog(flog.split('\n'))
+    p = cleanlog(flog.split('\n'))
 
     # 转换成字符串，正则匹配计算
     astr = '\n'.join(p)
@@ -94,5 +97,6 @@ def main(logfile, min=10):
 
 if __name__ == "__main__":
     # 脚本测试
-    p = main('tmp.log', 10)
-    print p
+    p = main('tmp.log', 20)
+    print
+    p
